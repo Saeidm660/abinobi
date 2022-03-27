@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <!-- <p id="buy">s</p>
+    <p id="sell">s</p> -->
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Coin</th>
+            <th scope="col">AbanTether Buy</th>
+            <th scope="col">AbanTether Sell</th>
+            <th scope="col">Nobitex Buy</th>
+            <th scope="col">Nobitex Sell</th>
+            <th scope="col">NA</th>
+            <th scope="col">AN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">BTC</th>
+            <td id="abtcbuy"></td>
+            <td id="abtcsell"></td>
+            <td id="btcbuy"></td>
+            <td id="btcsell"></td>
+            <td>h</td>
+            <td>h</td>
+          </tr>
+          <tr>
+            <th scope="row">TRX</th>
+            <td id="atrxbuy"></td>
+            <td id="atrxsell"></td>
+            <td id="trxbuy"></td>
+            <td id="trxsell"></td>
+            <td>h</td>
+            <td>h</td>
+          </tr>
+          <tr>
+            <th scope="row">USDT</th>
+            <td id="ausdtbuy"></td>
+            <td id="ausdtsell"></td>
+            <td id="usdtbuy"></td>
+            <td id="usdtsell"></td>
+            <td>h</td>
+            <td>h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</body>
+<script>
+
+// let url = "https://api.nobitex.ir/v2/orderbook/USDTIRT"
+// let app = document.querySelector("#app")
+// async function price (url){
+//     let response = await fetch(url)
+//     let data = await response.json()
+// }
+// price (url)
+// document.getElementById("demo").innerHTML = price.data;
+
+setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+
+fetch('https://api.nobitex.ir/v2/orderbook/USDTIRT')
+      .then(response => response.json())
+      .then(json => {
+        var usdtbuy = json.bids[0][0]/10
+        var usdtsell = json.asks[0][0]/10
+        document.getElementById('usdtbuy').innerHTML = usdtbuy;
+        document.getElementById('usdtsell').innerHTML = usdtsell;
+      });
+
+fetch('https://api.nobitex.ir/v2/orderbook/BTCIRT')
+.then(response => response.json())
+.then(json => {
+var btcbuy = json.bids[0][0]/10
+var btcsell = json.asks[0][0]/10
+document.getElementById('btcbuy').innerHTML = btcbuy;
+document.getElementById('btcsell').innerHTML = btcsell;
+});
+
+fetch('https://api.nobitex.ir/v2/orderbook/TRXIRT')
+.then(response => response.json())
+.then(json => {
+var trxbuy = json.bids[0][0]/10
+var trxsell = json.asks[0][0]/10
+document.getElementById('trxbuy').innerHTML = trxbuy;
+document.getElementById('trxsell').innerHTML = trxsell;
+});
+
+fetch('https://abantether.com/management/all-coins/')
+.then(response => response.json())
+.then(json => {
+    console.log(json[247]);
+var atrxbuy = Math.floor(json[260]["priceBuy"])
+var atrxsell = Math.floor(json[260]['priceSell'])
+var abtcbuy = Math.floor(json[43]["priceBuy"])
+var abtcsell = Math.floor(json[43]['priceSell'])
+var ausdtbuy = Math.floor(json[247]["priceBuy"])
+var ausdtsell = Math.floor(json[247]['priceSell'])
+document.getElementById('atrxbuy').innerHTML = atrxbuy;
+document.getElementById('atrxsell').innerHTML = atrxsell;
+document.getElementById('abtcbuy').innerHTML = abtcbuy;
+document.getElementById('abtcsell').innerHTML = abtcsell;
+document.getElementById('ausdtbuy').innerHTML = ausdtbuy;
+document.getElementById('ausdtsell').innerHTML = ausdtsell;
+});
+</script>
+</html>
+
+
+
+
+
